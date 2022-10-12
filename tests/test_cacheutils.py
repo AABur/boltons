@@ -94,8 +94,7 @@ def test_cache_sizes_on_repeat_insertions():
         test_cache["key2"] = "1"
         initial_list_size = len(test_cache._get_flattened_ll())
         for k in test_cache:
-            for __ in range(100):
-                test_cache[k] = "1"
+            test_cache[k] = "1"
         list_size_after_inserts = len(test_cache._get_flattened_ll())
         assert initial_list_size == list_size_after_inserts
 
@@ -180,7 +179,7 @@ def test_lru_with_dupes_2():
     SIZE = 3
     lru = LRU(max_size=SIZE)
     keys = ['A', 'A', 'B', 'A', 'C', 'B', 'D', 'E']
-    for i, k in enumerate(keys):
+    for k in keys:
         lru[k] = 'HIT'
         assert _test_linkage(lru._anchor, SIZE + 1), 'linked list invalid'
 
@@ -423,7 +422,7 @@ def test_min_id_map():
 
     items = list(midm.iteritems())
     assert isinstance(items[0][0], Foo)
-    assert sorted(item[1] for item in items) == list(range(0, len(ref_wheel)))
+    assert sorted(item[1] for item in items) == list(range(len(ref_wheel)))
 
 
 def test_threshold_counter():

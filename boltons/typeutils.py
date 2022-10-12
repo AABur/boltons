@@ -73,15 +73,15 @@ def make_sentinel(name='_MISSING', var_name=None):
       False
 
     """
+
+
     class Sentinel(object):
         def __init__(self):
             self.name = name
             self.var_name = var_name
 
         def __repr__(self):
-            if self.var_name:
-                return self.var_name
-            return '%s(%r)' % (self.__class__.__name__, self.name)
+            return self.var_name or '%s(%r)' % (self.__class__.__name__, self.name)
 
         if var_name:
             def __reduce__(self):
@@ -91,6 +91,7 @@ def make_sentinel(name='_MISSING', var_name=None):
             return False
 
         __bool__ = __nonzero__
+
 
     if var_name:
         frame = sys._getframe(1)
